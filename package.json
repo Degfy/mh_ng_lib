@@ -1,0 +1,23 @@
+{
+  "name": "mh_ng_lib",
+  "version": "1.0.0",
+  "description": "this is a template for webapp.",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "author": "Degfy King",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-nop": "0.0.3",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.1.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-uglifycss": "^1.0.4",
+    "promise": "^7.0.4"
+  }
+}

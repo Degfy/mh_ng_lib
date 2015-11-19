@@ -1,0 +1,25 @@
+{
+  "name": "mh_ng_lib",
+  "description": "美好学院的ng库",
+  "main": "./build/mhLib.js,./build/mhLib.css",
+  "authors": [
+    "Degfy King"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "美好学院",
+    "ng"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7"
+  }
+}

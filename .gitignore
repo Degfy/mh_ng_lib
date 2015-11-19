@@ -1,0 +1,7 @@
+/build.conf.js
+/.tmp
+/build
+/bower_components
+/node_modules
+/mh_lib.sublime-project
+/mh_lib.sublime-workspace
