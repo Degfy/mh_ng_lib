@@ -9,6 +9,8 @@ var ngAnnotate = require('gulp-ng-annotate');
 var sass    = require('gulp-sass');
 var uglifycss = require('gulp-uglifycss');
 var nop     = require('gulp-nop');
+var jade    = require('gulp-jade');
+var html2js = require('gulp-html2js')
 
 function noop(){};//一个空函数
 
@@ -134,8 +136,39 @@ gulp.task('cleancss',function(){
     .pipe(clean());
 });
 
+//清理html文件
+gulp.task('cleanhtml',function(){
+    return gulp
+    .src(['./.tmp/**/*.html','./build/**/*.html'])
+    .pipe(clean());
+});
+
+//编译jade文件
+gulp.task('jade',['cleanhtml','dev-analyze'],function(){
+    var filesArr = [];
+    for(var i = 0; i < depend_modules.length; i++){
+        filesArr.push(build_config.in_param.path + depend_modules[i] + '/template/**/*.jade');
+    }
+
+    return gulp
+    .src(filesArr)
+    .pipe(jade())
+    .pipe(gulp.dest('./.tmp/template'));
+});
+
+gulp.task('html2js',['jade'],function(){
+    return gulp
+    .src('./.tmp/template/*.html')
+    .pipe(html2js({
+      outputModuleName: 'mh.tpl',
+      useStrict: true
+    }))
+    .pipe(concat('mh.tpl.js'))
+    .pipe(gulp.dest('./.tmp/modules'));
+});
+
 //编译js
-gulp.task('js', ['cleanjs','dev-analyze'],function() {
+gulp.task('js', ['cleanjs','dev-analyze','html2js'],function() {
     var jsdest = gulp.dest('build');
     console.log('js合并与压缩开始！');
 
@@ -165,7 +198,8 @@ gulp.task('js', ['cleanjs','dev-analyze'],function() {
     return jsdest;
 });
 
-gulp.task('css',['cleancss'],function(){
+//编译css文件
+gulp.task('css',['cleancss','dev-analyze'],function(){
     var filesArr = [];
     for(var i = 0; i < depend_modules.length; i++){
         filesArr.push(build_config.in_param.path + depend_modules[i] + '/scss/**/*.scss');
@@ -179,5 +213,4 @@ gulp.task('css',['cleancss'],function(){
     .pipe(gulp.dest('./build'));
 });
 
-
-gulp.task('build',['js','css']);
+gulp.task('build',['js','css']);  
